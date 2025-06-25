@@ -1,0 +1,11 @@
+El balanceador de carga tiene como objetivo distribuir las solicitudes de los usuarios entre dos servidores de aplicaciones (AppServer1 y AppServer2), permitiendo:
+
+Alta disponibilidad del sistema.
+
+Escalabilidad horizontal.
+
+Redundancia frente a fallos de un servidor.
+
+Punto de acceso único para el cliente (proxy-sis313.com).
+
+Este balanceador fue implementado con NGINX y configurado para redirigir el tráfico entre los dos servidores de aplicaciones, ambos corriendo un CRUD desarrollado en Node.js conectado a una base de datos MySQL replicada (maestro-esclavo).
