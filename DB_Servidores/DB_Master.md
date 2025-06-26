@@ -176,6 +176,9 @@ Agregar línea:
 UUID=xxx-xxx /mnt/raid1 ext4 defaults,nofail 0 0
 ```
 
+![Diagrama de Arquitectura](img/Diagrama_arquitectura.png)
+
+
 ---
 
 ##  Buenas Prácticas Aplicadas
