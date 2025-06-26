@@ -1,18 +1,11 @@
 
-# 🧩 Configuración del Servidor Esclavo (BDSERVER2)
+#  Configuración del Servidor Esclavo (BDSERVER2)
 
-## 🎯 Objetivo
+##  Objetivo
 
 Configurar el servidor `BDSERVER2` como **esclavo**, el cual se conectará al maestro (`BDSERVER1`) y replicará los cambios en la base `tienda` de forma automática.
 
 ---
-
-## 🛠️ Equipamiento
-
-* Ubuntu Server (24.04 LTS)
-* IP fija: `192.168.210.104`
-* Nombre de host: `BDSERVER2`
-
 ---
 
 ## 1. Instalación de MySQL
@@ -57,6 +50,20 @@ sudo systemctl restart mysql
 ```
 
 ---
+
+ Configuración de /etc/hosts
+
+Registrar la IP del maestro para facilitar conexión por nombre (opcional pero recomendado):
+
+```bash
+sudo nano /etc/hosts
+```
+Agregar:
+`
+192.168.210.103 BDSERVER1
+127.0.0.1       localhost
+127.0.1.1       BDSERVER2
+`
 
 ## 3. Importar Base de Datos desde el Maestro
 
@@ -125,7 +132,7 @@ SELECT * FROM productos;
 
 ---
 
-## ✅ Conclusión
+##  Conclusión
 
 Ambos servidores están correctamente configurados:
 
