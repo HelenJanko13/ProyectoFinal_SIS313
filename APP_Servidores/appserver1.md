@@ -1,15 +1,16 @@
-# 🖥️ AppServer1 - Documentación Detallada
+# AppServer1 
 
-## 🎯 Objetivo del Servidor
+##  Objetivo del Servidor
 
 AppServer1 ejecuta una aplicación web desarrollada con Node.js que implementa un CRUD (Crear, Leer, Actualizar y Eliminar) para la gestión de productos electrónicos.  
 Está conectado al servidor de base de datos maestro (`192.168.210.103`) y balanceado a través del proxy `proxy-sis313.com`.
 
 ---
 
-## ⚙️ Instalación y Configuración del Entorno
 
-### 📦 Instalación de Node.js y NPM
+##  Instalación y Configuración del Entorno
+
+###  Instalación de Node.js y NPM
 
 ```bash
 sudo apt update && sudo apt install nodejs npm -y
