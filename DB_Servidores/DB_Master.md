@@ -131,8 +131,8 @@ SHOW MASTER STATUS;
 
 Guarda los valores `File` y `Position`, por ejemplo:
 
-* File: `mysql-bin.000001`
-* Position: `1234`
+* File: `mysql-bin.000007`
+* Position: `157`
 
 ---
 
