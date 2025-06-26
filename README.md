@@ -9,10 +9,10 @@ Este repositorio contiene la documentación completa y el código fuente del pro
 | Módulo                        | Descripción                                                                                     |
 |------------------------------|-------------------------------------------------------------------------------------------------|
 |  [Balanceador (Proxy)](./Proxy_Balanceador.md)        | Configuración de NGINX como balanceador de carga entre AppServer1 y AppServer2.             |
-|  [Base de Datos Maestro](./DB_Master.md)             | Configuración de replicación MySQL, usuarios, hardening y RAID 1 en `BDSERVER1`.            |
-|  [Base de Datos Esclavo](./DB_Slave.md)             | Configuración de MySQL como esclavo replicado desde `BDSERVER1`.                            |
-|  [AppServer 1](./AppServer1.md)                      | Despliegue de una aplicación Node.js CRUD en `APPSERVER1` conectada a la base de datos.     |
-|  [AppServer 2](./AppServer2.md)                      | Despliegue idéntico al AppServer1 en `APPSERVER2` para alta disponibilidad.                 |
+|  [Base de Datos Maestro](./DB_Servidores/DB_Master.md)             | Configuración de replicación MySQL, usuarios, hardening y RAID 1 en `BDSERVER1`.            |
+|  [Base de Datos Esclavo](./DB_Servidores/DB_Slave.md)             | Configuración de MySQL como esclavo replicado desde `BDSERVER1`.                            |
+|  [AppServer 1](./APP_Servidores/appserver1.md)                      | Despliegue de una aplicación Node.js CRUD en `APPSERVER1` conectada a la base de datos.     
+|  [AppServer 2](./APP_Servidores/appserver2.md)                      | Despliegue idéntico al AppServer1 en `APPSERVER2` para alta disponibilidad.                |
 
 ---
 
