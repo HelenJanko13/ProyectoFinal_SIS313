@@ -6,7 +6,38 @@ AppServer1 ejecuta una aplicación web desarrollada con Node.js que implementa u
 Está conectado al servidor de base de datos maestro (`192.168.210.103`) y balanceado a través del proxy `proxy-sis313.com`.
 
 ---
+###  Configuración de Red Estática 
 
+Archivo editado:
+
+```bash
+sudo nano /etc/netplan/50-cloud-init.yaml
+```
+
+Contenido:
+
+```yaml
+ network:
+  version: 2
+  ethernets:
+    enp0s3:
+      dhcp4: false
+      addresses: [192.168.210.101/24]
+      routes:
+      - to: default
+        via: 192.168.210.60
+      nameservers:
+        addresses: [8.8.8.8, 8.8.4.4]
+```
+
+Aplicación:
+
+```bash
+sudo netplan apply
+```
+---
+
+---
 
 ##  Instalación y Configuración del Entorno
 
