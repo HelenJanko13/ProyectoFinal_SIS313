@@ -1,28 +1,27 @@
-# 🧩 Configuración del Servidor Maestro (BDSERVER1)
+#  Configuración del Servidor Maestro (BDSERVER1)
 
-## 🎯 Objetivo
+##  Objetivo
 
 Configurar MySQL como **servidor maestro** para replicación de base de datos, permitiendo que el esclavo reciba automáticamente todos los cambios realizados en la base `tienda`, y simular un entorno con tolerancia a fallos mediante RAID.
 
 ---
-
-## 🛠️ Equipamiento
-
-* Ubuntu Server (24.04 LTS)
-* IP fija: `192.168.210.103`
-* Nombre de host: `BDSERVER1`
-
 ---
 
 ## 1. Instalación de MySQL
 
 ```bash
 sudo apt update
+```
+
+Instalar el servicio
+```bash
 sudo apt install mysql-server -y
+```
+Iniciarlo
+```bash
 sudo systemctl enable mysql
 sudo systemctl start mysql
 ```
-
 ---
 
 ## 2. Script de Seguridad Inicial
@@ -39,7 +38,7 @@ sudo mysql_secure_installation
 * Establece el nivel de complejidad de contraseñas (en este caso: **MEDIUM**).
 * Recarga los privilegios.
 
-✅ Mejora la seguridad básica de MySQL antes de exponerlo en red.
+ Mejora la seguridad básica de MySQL antes de exponerlo en red.
 
 ---
 
@@ -86,7 +85,7 @@ sudo systemctl restart mysql
 
 ## 4. Crear Usuarios para Replicación y Aplicación
 
-### 🔐 Usuario `replica` (específico para replicación)
+###  Usuario `replica` (específico para replicación)
 
 **¿Por qué no usar `root`?**
 
@@ -107,7 +106,7 @@ GRANT REPLICATION SLAVE ON *.* TO 'replica'@'192.168.210.104';
 FLUSH PRIVILEGES;
 ```
 
-### 👤 Usuario `appuser1` (para uso por las aplicaciones Node.js)
+###  Usuario `appuser1` (para uso por las aplicaciones Node.js)
 
 **Motivo**: Las apps `AppServer1` y `AppServer2` necesitan acceder a la base de datos con permisos de lectura/escritura.
 
@@ -128,7 +127,7 @@ FLUSH TABLES WITH READ LOCK;
 SHOW MASTER STATUS;
 ```
 
-✅ **NO CIERRES ESTA TERMINAL AÚN**
+ **NO CIERRES ESTA TERMINAL AÚN**
 
 Guarda los valores `File` y `Position`, por ejemplo:
 
@@ -179,9 +178,9 @@ UUID=xxx-xxx /mnt/raid1 ext4 defaults,nofail 0 0
 
 ---
 
-## ✅ Buenas Prácticas Aplicadas
+##  Buenas Prácticas Aplicadas
 
-### 🔐 Separación de usuarios
+###  Separación de usuarios
 
 | Usuario    | Uso                            | Permisos mínimos necesarios |
 | ---------- | ------------------------------ | --------------------------- |
@@ -195,6 +194,7 @@ UUID=xxx-xxx /mnt/raid1 ext4 defaults,nofail 0 0
 * Evita accesos no deseados o accidentes de código.
 
 ---
+SE SIGUE NE LA BASE DE DATOS 2
 
 
 
