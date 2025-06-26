@@ -64,7 +64,7 @@ git repository:
 keywords: API, ProjectSIS313
 author: SH SIS313
 license: (ISC)
-About to write to /home/AppServer1/apps/api/package.json:
+About to write to /home/AppServer2/apps/api/package.json:
 
 {
   "name": "api",
@@ -91,16 +91,90 @@ npm install -g npm@11.4.2
 ```
 ---
 ---
+###  Instalación de dependencias
+
+```bash
+npm install express mysql2 body-parser
+```
+
+- `express`: Framework web para Node.js  
+- `mysql2`: Cliente para conectarse a bases de datos MySQL
+- `body-parser`: Middleware que permite que la app entienda el contenido de las peticiones POST y PUT.
 
 ---
 
-##  Aplicación CRUD
+##  Desarrollo de la Aplicación CRUD
 
-La aplicación `index.js` es idéntica a la de AppServer1 y contiene:
+###  Archivo principal `index.js`
 
-- Conexión a la base de datos maestro (`192.168.210.103`)
-- Interfaz HTML para gestión de productos
-- API REST para manejar operaciones CRUD
+```javascript
+const express = require('express');
+const mysql = require('mysql2');
+const app = express();
+const PORT = 3002;
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Conexión a la base de datos
+const db = mysql.createConnection({
+  host: '192.168.210.103',
+  user: 'appuser1',
+  password: 'Hsis_313',
+  database: 'tienda'
+});
+
+db.connect((err) => {
+  if (err) {
+    console.error('Error conectando a la base de datos:', err);
+  } else {
+    console.log('Conectado a la base de datos');
+  }
+});
+```
+
+La configuración se conecta a la base de datos maestro (IP `192.168.210.103`) usando el usuario `appuser1`.
+
+---
+
+### 📄 Ruta principal `/`
+
+Devuelve una interfaz HTML con formulario y tabla:
+
+```javascript
+app.get('/', (req, res) => {
+  db.query('SELECT * FROM productos', (err, productos) => {
+    if (err) return res.status(500).send('Error consultando la base de datos');
+    // ... HTML con formulario, tabla y acciones de edición y borrado
+  });
+});
+```
+
+Esta ruta sirve como interfaz gráfica principal para el usuario.
+
+---
+
+### 📡 API REST
+
+```javascript
+// Obtener productos
+app.get('/productos', (req, res) => { ... });
+
+// Agregar producto
+app.post('/agregar', (req, res) => { ... });
+
+// Editar producto
+app.put('/editar/:id', (req, res) => { ... });
+
+// Borrar producto
+app.delete('/borrar/:id', (req, res) => { ... });
+```
+
+Estas rutas permiten interactuar con la base de datos desde el frontend o un cliente externo.
+
+---
+---
+
 
 ###  Se inicia con:
 
@@ -112,7 +186,7 @@ node index.js
 
 ###  La app queda disponible en:
 
-- http://192.168.210.102:3001 (directo)
+- http://192.168.210.102:3002 (directo)
 - http://proxy-sis313.com/ (si AppServer1 falla)
 
 ---
@@ -120,7 +194,7 @@ node index.js
 ##  Hardening y Seguridad
 
 ```bash
-sudo ufw allow 3001/tcp
+sudo ufw allow 3002/tcp
 ```
 
 El firewall fue configurado para permitir únicamente el tráfico necesario.
