@@ -3,7 +3,7 @@
 
 ## 🎯 Objetivo
 
-Configurar el servidor `BDSERVER2` como esclavo que se conectará al maestro (`BDSERVER1`) y replicará los cambios en la base `tienda`.
+Configurar el servidor `BDSERVER2` como **esclavo**, el cual se conectará al maestro (`BDSERVER1`) y replicará los cambios en la base `tienda` de forma automática.
 
 ---
 
@@ -24,9 +24,19 @@ sudo systemctl enable mysql
 sudo systemctl start mysql
 ```
 
+Ejecutar también:
+
+```bash
+sudo mysql_secure_installation
+```
+
+**Este paso mejora la seguridad del servicio antes de exponerlo.**
+
 ---
 
-## 2. Editar archivo de configuración
+## 2. Configurar MySQL para actuar como Esclavo
+
+Editar archivo:
 
 ```bash
 sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
@@ -48,15 +58,17 @@ sudo systemctl restart mysql
 
 ---
 
-## 3. Importar Base de Datos Enviada por el Maestro
+## 3. Importar Base de Datos desde el Maestro
 
 ```bash
 mysql -u root -p < /home/helen/tienda.sql
 ```
 
+Esto asegura que el esclavo parte del mismo estado inicial que el maestro.
+
 ---
 
-## 4. Configurar Replicación
+## 4. Configurar Replicación en el Esclavo
 
 Entrar a MySQL como root:
 
@@ -79,16 +91,18 @@ START SLAVE;
 
 ---
 
-## 5. Verificar que la replicación funciona
+## 5. Verificar que la replicación funcione
 
 ```sql
 SHOW SLAVE STATUS\G;
 ```
 
-> Debe decir:
+> Verifica que:
+>
+> * `Slave_IO_Running: Yes`
+> * `Slave_SQL_Running: Yes`
 
-* `Slave_IO_Running: Yes`
-* `Slave_SQL_Running: Yes`
+Si aparecen errores de conexión, revisa la contraseña del usuario `replica`, el log file y log position.
 
 ---
 
@@ -113,5 +127,11 @@ SELECT * FROM productos;
 
 ## ✅ Conclusión
 
-Ambos servidores están correctamente configurados. Si el maestro falla, se puede hacer un failover reconfigurando el esclavo para lectura/escritura. La replicación asegura consistencia y alta disponibilidad para el sistema web distribuido.
+Ambos servidores están correctamente configurados:
 
+* El maestro realiza la escritura.
+* El esclavo replica los datos.
+* Se han aplicado prácticas de seguridad (usuarios separados, secure installation).
+* Tolerancia a fallos fue demostrada con RAID.
+
+Esto garantiza **alta disponibilidad**, **integridad de los datos** y **resiliencia** ante fallos físicos o de red.
