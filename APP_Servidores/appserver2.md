@@ -46,8 +46,8 @@ Instala Node.js versión 22 mediante NVM (Node Version Manager), útil para mant
 #### Crea el directorio para alojar la aplicación y entrar con `cd`
 
 ```bash
-mkdir -p ~/apps/api
-cd ~/apps/api
+mkdir -p ~/app/api
+cd ~/app/api
 ```
 #### Genera el archivo `package.json` que contiene la configuración del proyecto.
 ```bash
@@ -64,7 +64,7 @@ git repository:
 keywords: API, ProjectSIS313
 author: SH SIS313
 license: (ISC)
-About to write to /home/AppServer2/apps/api/package.json:
+About to write to /home/AppServer2/app/api/package.json:
 
 {
   "name": "api",
@@ -137,7 +137,7 @@ La configuración se conecta a la base de datos maestro (IP `192.168.210.103`) u
 
 ---
 
-### 📄 Ruta principal `/`
+###  Ruta principal `/`
 
 Devuelve una interfaz HTML con formulario y tabla:
 
@@ -154,7 +154,7 @@ Esta ruta sirve como interfaz gráfica principal para el usuario.
 
 ---
 
-### 📡 API REST
+### API REST
 
 ```javascript
 // Obtener productos
