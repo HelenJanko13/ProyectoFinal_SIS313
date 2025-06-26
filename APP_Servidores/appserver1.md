@@ -37,6 +37,24 @@ sudo netplan apply
 ```
 ---
 
+###   Instalación y configuración de NGINX
+
+####   Actualizacion e Instalacion
+```bash
+   sudo apt update && sudo apt install nginx
+```
+####   Verificacion del EStado del servicio
+```bash
+   sudo systemctl status nginx
+```
+  El estado deberia de estar en active (running). Si no lo esta, se lo inicia con: 
+```bash
+   sudo systemctl start nginx
+```
+  Para habilitar el inicio automatico con: 
+```bash
+   sudo systemctl enable nginx
+```
 ---
 
 ##  Instalación y Configuración del Entorno
@@ -55,40 +73,100 @@ Instala Node.js y el gestor de paquetes npm en el servidor.
 
 ```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+```
+```bash
 . "$HOME/.nvm/nvm.sh"
+```
+Download and install Node.js:
+```bash
 nvm install 22
 ```
+
+Verify the Node.js version:
+```bash
+node -v
+```
+Should print "v22.17.0".
+
+```bash
+nvm current
+```
+Should print "v22.17.0".
+
+Verify npm version:
+```bash
+npm -v
+```
+Should print "10.9.2".
 
 Instala Node.js versión 22 mediante NVM (Node Version Manager), útil para mantener versiones actualizadas y ordenadas.
 
 ---
 
-### 📁 Estructura del Proyecto
+###  Estructura del Proyecto
+#### Crea el directorio para alojar la aplicación y entrar con `cd`
 
 ```bash
 mkdir -p ~/apps/api
 cd ~/apps/api
+```
+#### Genera el archivo `package.json` que contiene la configuración del proyecto.
+```bash
 npm init -y
 ```
+#### Configuraciones 
+```bash
+package name: (api)
+version: (1.0.0)
+description: API Backend Project SIS313
+entry point: (index.js)
+test command:
+git repository:
+keywords: API, ProjectSIS313
+author: SH SIS313
+license: (ISC)
+About to write to /home/AppServer1/apps/api/package.json:
 
-Crea el directorio para alojar la aplicación y genera el archivo `package.json` que contiene la configuración del proyecto.
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "API Backend Project SIS313",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "API",
+    "ProjectSIS313"
+  ],
+  "author": " SH SIS313",
+  "license": "ISC"
+}
 
+
+Is this OK? (yes) y
+```
+#### Si es el caso, se podria actualizar el gestor de paquetes de Node.js, el que te permite instalar librerías como express, mysql2, etc.
+```bash
+npm install -g npm@11.4.2
+```
 ---
 
-### 📦 Instalación de dependencias
+###  Instalación de dependencias
 
 ```bash
-npm install express mysql2
+npm install express mysql2 body-parser
 ```
 
 - `express`: Framework web para Node.js  
 - `mysql2`: Cliente para conectarse a bases de datos MySQL
+- `body-parser`: Middleware que permite que la app entienda el contenido de las peticiones POST y PUT.
 
 ---
 
-## 🛠️ Desarrollo de la Aplicación CRUD
+##  Desarrollo de la Aplicación CRUD
 
-### 📝 Archivo principal `index.js`
+###  Archivo principal `index.js`
 
 ```javascript
 const express = require('express');
